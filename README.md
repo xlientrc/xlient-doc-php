@@ -6,7 +6,7 @@ Requires PHP 8.1 or higher.
 
 ## Install
 
-```composer require xlient/php-documentor```
+```composer require xlient/doc-php```
 
 ## Setup
 Any php files you wish to generate documents for must be already loaded or autoloadable.
