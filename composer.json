@@ -1,0 +1,34 @@
+{
+    "name": "xlient/doc-php",
+    "type": "library",
+    "description": "A PHP library for generating markdown files from PHPDoc comments and reflection.",
+    "keywords": [
+        "xlient",
+        "phpdoc",
+        "markdown",
+        "documentation"
+    ],
+    "homepage": "https://xlient.com",
+    "license": "Unlicense",
+    "require": {
+        "phpstan/phpdoc-parser": "^1.16"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xlient\\Doc\\Php\\": "src/"
+        },
+        "files": ["src/Helpers.php"]
+    },
+    "support": {
+        "issues": "https://github.com/xlientrc/xlient-doc-php/issues",
+        "source": "https://github.com/xlientrc/xlient-doc-php"
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-main" : "1.0-dev"
+        }
+    }
+}

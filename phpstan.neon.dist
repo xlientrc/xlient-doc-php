@@ -1,0 +1,26 @@
+parameters:
+    level: max
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
+    ignoreErrors:
+        -
+            message: "#^Call to an undefined method Xlient\\\\Doc\\\\Php\\\\Configuration::urlCallback\\(\\)\\.$#"
+            count: 1
+            path: src/AbstractPhpDoc.php
+        -
+            message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class-string<T of object>|T of object, string given\\.$#"
+            count: 1
+            path: src/PhpClassDoc.php
+        -
+            message: "#^Call to an undefined method Xlient\\\\Doc\\\\Php\\\\Configuration::methodUrlCallback\\(\\)\\.$#"
+            count: 1
+            path: src/PhpClassDoc.php
+        -
+            message: "#^Unable to resolve the template type T in call to method Xlient\\\\Doc\\\\Php\\\\AbstractPhpDoc::removeIgnoreableReflectors\\(\\)#"
+            count: 1
+            path: src/PhpEnumDoc.php
+        -
+            message: "#^Method Xlient\\\\Doc\\\\Php\\\\PhpEnumDoc::getClassReflectionCases\\(\\) should return array<ReflectionEnumUnitCase> but returns array<ReflectionClassConstant|ReflectionMethod|ReflectionProperty>\\.$#"
+            count: 1
+            path: src/PhpEnumDoc.php
