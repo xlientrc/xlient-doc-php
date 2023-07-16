@@ -131,7 +131,6 @@ abstract class AbstractPhpDoc
         $heading = str_repeat('#', $headingDepth);
 
         if ($anchor !== null) {
-            $anchor = xlient_markdown_escape($anchor);
             $content[] = '<a id="' . $anchor . '"></a>';
         }
 
@@ -683,7 +682,6 @@ abstract class AbstractPhpDoc
         $heading = str_repeat('#', $headingDepth);
 
         if ($anchor !== null) {
-            $anchor = xlient_markdown_escape($anchor);
             $content[] = '<a id="' . $anchor . '"></a>';
         }
 
@@ -743,7 +741,6 @@ abstract class AbstractPhpDoc
         $heading = str_repeat('#', $headingDepth);
 
         if ($anchor !== null) {
-            $anchor = xlient_markdown_escape($anchor);
             $content[] = '<a id="' . $anchor . '"></a>';
         }
 
@@ -803,7 +800,6 @@ abstract class AbstractPhpDoc
         $heading = str_repeat('#', $headingDepth);
 
         if ($anchor !== null) {
-            $anchor = xlient_markdown_escape($anchor);
             $content[] = '<a id="' . $anchor . '"></a>';
         }
 
@@ -1001,8 +997,6 @@ abstract class AbstractPhpDoc
             array_values($this->config->pathFixes),
             $name
         );
-
-        $name = xlient_to_kebab_case($name);
 
         return $name;
     }

@@ -310,12 +310,6 @@ class PhpClassDoc extends AbstractPhpDoc
         );
 
         foreach ($constants as $value) {
-            /* $name = $value->getName();
-            if (strtoupper($name) === $name) {
-                $name = strtolower($name);
-            }
-            $anchor = $this->getAnchor($name); */
-
             $content[] = xlient_indent(
                 $this->getClassConstantDefinition($value),
                 1,

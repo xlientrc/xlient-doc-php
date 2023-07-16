@@ -235,7 +235,7 @@ class PhpConstantsDoc extends AbstractPhpDoc
     {
         $content = [];
 
-        $content[] = '## ' . $this->config->labels['functions'];
+        $content[] = '## ' . $this->config->labels['constants'];
 
         $table = [];
         $table[] = '| ' . $this->config->labels['name'] . ' | ' . $this->config->labels['description'] . ' |';
@@ -252,9 +252,9 @@ class PhpConstantsDoc extends AbstractPhpDoc
 
             $row = '| ';
             if ($data->url !== null) {
-                $row .= '[' . $data->name . '()](' . $data->url . ')' . $marks . ' | ';
+                $row .= '[' . $data->name . '](' . $data->url . ')' . $marks . ' | ';
             } else {
-                $row .= $data->name . '()' . $marks . ' | ';
+                $row .= $data->name . $marks . ' | ';
             }
 
             $row .= $data->description ?? '';
@@ -331,13 +331,7 @@ class PhpConstantsDoc extends AbstractPhpDoc
         $content[] = '## ' . $this->config->labels['constant_details'];
 
         foreach ($this->constants as $value) {
-            $anchor = str_replace(
-                '_',
-                '-',
-                strtolower($value->getShortName())
-            );
-
-            $anchor = xlient_markdown_escape($anchor);
+            $anchor = $this->getAnchor($value->getShortName());
             $content[] = '<a id="' . $anchor . '"></a>';
 
             $name = xlient_markdown_escape($value->getShortName());
