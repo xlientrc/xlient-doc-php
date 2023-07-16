@@ -998,6 +998,8 @@ abstract class AbstractPhpDoc
             $name
         );
 
+        $name = xlient_to_kebab_case($name);
+
         return $name;
     }
 
