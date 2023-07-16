@@ -134,22 +134,24 @@ class InheritDoc
         ReflectionClass $reflector
     ): ?ReflectionClass
     {
-        $parentReflection = null;
+        $parentClass = null;
+
+        $parentReflection = $reflector;
 
         while (true) {
-            $parent = $reflector->getParentClass();
-            if ($parent === false) {
+            $parentReflection = $parentReflection->getParentClass();
+            if ($parentReflection === false) {
                 break;
             }
 
             // Keep going up until a comment is reached
-            if ($parent->getDocComment() !== false) {
-                $parentReflection = $parent;
+            if ($parentReflection->getDocComment() !== false) {
+                $parentClass = $parentReflection;
                 break;
             }
         }
 
-        return $parentReflection;
+        return $parentClass;
     }
 
     /**
