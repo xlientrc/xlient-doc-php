@@ -136,18 +136,20 @@ class Configuration
      *  access modifiers.
      * @param bool $sortByType When true, types will be sorted by the
      *  specified typeOrder order.
-     * @param bool $enableTables When true, certain information will be placed
-     *  in tables instead of a more mobile friendly headings and paragraphs.
-     * @param bool $inheritDocComment When true, items with \@inheritDoc tags
+     * @param bool $inheritDocComments When true, items with \@inheritDoc tags
      *  will inherit documentation from its parent.
-     * @param bool $prioritizeDocComment When true, the information contained
+     * @param bool $prioritizeDocComments When true, the information contained
      *  in the PHPDoc comment will take precedence over the information gotten
      *  from reflection.
-     * @param bool $useNullableSyntax When true, ? will be used instead of
-     *  null where appropriate.
-     * @param int $indentLength The length in spaces to indent code by.
      * @param bool $escapeDocComments When true, PHPDoc comment text will be
      *  escaped to not interfere with markdown.
+     * @param bool $useNullableSyntax When true, ? will be used instead of
+     *  null where appropriate.
+     * @param bool $enableTables When true, certain information will be placed
+     *  in tables instead of a more mobile friendly headings and paragraphs.
+     * @param int $indentLength The length in spaces to indent code by.
+     * @param int $lineLength The maximum length in characters a code line
+     *  should be.
      * @param bool $override When true, any existing generated docs will be
      *  removed before remaking.
      */
@@ -245,12 +247,15 @@ class Configuration
         public bool $sortByAccessModifier = true,
         public bool $groupByAccessModifier = true,
         public bool $sortByType = true,
-        public bool $enableTables = true,
-        public bool $inheritDocComment = true,
-        public bool $prioritizeDocComment = true,
-        public bool $useNullableSyntax = true,
-        public int $indentLength = 4,
+
+        public bool $inheritDocComments = true,
+        public bool $prioritizeDocComments = true,
         public bool $escapeDocComments = false,
+
+        public bool $useNullableSyntax = true,
+        public bool $enableTables = true,
+        public int $indentLength = 4,
+        public int $lineLength = 80,
         public bool $override = false,
     ) {
         foreach ($this->baseNamespaces as $key => $value) {

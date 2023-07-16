@@ -1802,7 +1802,7 @@ class PhpClassDoc extends AbstractPhpDoc
 
         $tags = $docComment->getVarTagValues();
         if ($tags) {
-            if ($type === null || $this->config->prioritizeDocComment) {
+            if ($type === null || $this->config->prioritizeDocComments) {
                 $tagType = strval($tags[0]->type);
                 if ($tagType !== '') {
                     $type = $tagType;

@@ -7,6 +7,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;

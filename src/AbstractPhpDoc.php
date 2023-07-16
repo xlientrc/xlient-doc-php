@@ -326,7 +326,7 @@ abstract class AbstractPhpDoc
         // Type
         $type = null;
 
-        if ($this->config->prioritizeDocComment) {
+        if ($this->config->prioritizeDocComments) {
             $type = ($tag ? strval($tag->type) : '');
             if ($type === '') {
                 $type = null;
@@ -501,7 +501,7 @@ abstract class AbstractPhpDoc
     {
         $type = null;
 
-        if ($tag !== null && $this->config->prioritizeDocComment) {
+        if ($tag !== null && $this->config->prioritizeDocComments) {
             $type = strval($tag->type);
             if ($type === '') {
                 $type = null;
@@ -1189,7 +1189,7 @@ abstract class AbstractPhpDoc
             $content = [implode(' ', $content)];
 
             if (count($interfaces) > 1 ||
-                strlen($content[0] . ' ' . $interfaces[0]) > 80
+                strlen($content[0] . ' ' . $interfaces[0]) > $this->config->lineLength
             ) {
                 $indent = str_pad(' ', $this->config->indentLength, ' ');
                 $content[] = "\n" . $indent . "\\" . implode(",\n    \\", $interfaces);
@@ -1591,7 +1591,7 @@ abstract class AbstractPhpDoc
 
         $hasNewlines = false;
         // TODO: Make this a config option.
-        if ($len > 80) {
+        if ($len > $this->config->lineLength) {
             $hasNewlines = true;
         } else {
             foreach ($parameters as $key => $value) {
@@ -1954,7 +1954,7 @@ abstract class AbstractPhpDoc
         ?string $docComment = null
     ): string
     {
-        if (!$this->config->inheritDocComment) {
+        if (!$this->config->inheritDocComments) {
             return $docComment ?? '/** */';
         }
 

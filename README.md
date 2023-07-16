@@ -815,17 +815,7 @@ When true, types will be sorted by the specified `typeOrder` order.
 sortByType: true,
 ```
 
-### enableTables
-
-When true, certain information will be placed in tables instead of a more mobile friendly headings and paragraphs.
-
-#### Default
-
-```php
-enableTables: true,
-```
-
-### inheritDocComment
+### inheritDocComments
 
 When true, child class PHPDoc comments will inherit missing information from its corresponding parent PHPDoc comment.
 
@@ -844,17 +834,27 @@ If it is the only text / tag in the PHPDoc comment, it will instead inherit the 
 #### Default
 
 ```php
-inheritDocComment: true,
+inheritDocComments: true,
 ```
 
-### prioritizeDocComment
+### prioritizeDocComments
 
 When true, the information contained in the PHPDoc comment will take precedence over the information gotten from reflection.
 
 #### Default
 
 ```php
-prioritizeDocComment: true,
+prioritizeDocComments: true,
+```
+
+### escapeDocComments
+
+When true, PHPDoc comment text will be escaped to not interfere with Markdown.
+
+#### Default
+
+```php
+escapeDocComments = false,
 ```
 
 ### useNullableSyntax
@@ -867,6 +867,16 @@ When true, `?` will be used instead of `null` where appropriate.
 useNullableSyntax: true,
 ```
 
+### enableTables
+
+When true, certain information will be placed in tables instead of a more mobile friendly headings and paragraphs.
+
+#### Default
+
+```php
+enableTables: true,
+```
+
 ### indentLength
 
 The length in spaces to indent code by.
@@ -877,7 +887,17 @@ The length in spaces to indent code by.
 indentLength: 4,
 ```
 
-###
+### lineLength
+
+The maximum length in characters a code line should be.
+
+#### Default
+
+```php
+lineLength: 80,
+```
+
+### override
 
 When true, any existing generated docs in the `destDir` will be removed before making.
 
@@ -885,14 +905,4 @@ When true, any existing generated docs in the `destDir` will be removed before m
 
 ```php
 override = false,
-```
-
-### escapeDocComments
-
-When true, PHPDoc comment text will be escaped to not interfere with Markdown.
-
-#### Default
-
-```php
-escapeDocComments = false,
 ```
