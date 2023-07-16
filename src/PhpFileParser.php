@@ -429,6 +429,36 @@ final class PhpFileParser
         $value = '';
 
         while ($token = array_pop($tokens)) {
+            if ($inValue) {
+                if ($token === ';') {
+                    if ($define === null) {
+                        throw new UnexpectedValueException(
+                            'Xlient PHPConstant instance not set.'
+                        );
+                    }
+
+                    // Remove closing ')' of define
+                    $value = rtrim(substr(trim($value), 0, -1));
+                    $define->setValue($value);
+                    break;
+                }
+
+                if (is_array($token)) {
+                    if ($token[0] === T_NAME_FULLY_QUALIFIED ||
+                        $token[0] === T_STRING
+                    ) {
+                        $hash = $this->meta->addName($token[1]);
+                        $value .= $hash;
+                    } else {
+                        $value .= $token[1];
+                    }
+                } else {
+                    $value .= $token;
+                }
+
+                continue;
+            }
+
             if ($token === '(') {
                 continue;
             }
@@ -468,36 +498,6 @@ final class PhpFileParser
                 $constants->add($define);
 
                 $inValue = true;
-
-                continue;
-            }
-
-            if ($inValue) {
-                if ($token === ';') {
-                    if ($define === null) {
-                        throw new UnexpectedValueException(
-                            'Xlient PHPConstant instance not set.'
-                        );
-                    }
-
-                    // Remove closing ')' of define
-                    $value = rtrim(substr(trim($value), 0, -1));
-                    $define->setValue($value);
-                    break;
-                }
-
-                if (is_array($token)) {
-                    if ($token[0] === T_NAME_FULLY_QUALIFIED ||
-                        $token[0] === T_STRING
-                    ) {
-                        $hash = $this->meta->addName($token[1]);
-                        $value .= $hash;
-                    } else {
-                        $value .= $token[1];
-                    }
-                } else {
-                    $value .= $token;
-                }
 
                 continue;
             }
