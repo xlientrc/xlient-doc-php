@@ -1795,13 +1795,25 @@ class PhpClassDoc extends AbstractPhpDoc
             $type = xlient_markdown_escape($type);
         }
 
+        $description = null;
+
         $docComment = $this->inheritDocComment($property);
         $docComment = new DocComment($docComment);
 
-        $description = $this->makeDescription(
-            $docComment->getSummary(),
-            null
-        );
+        $tags = $docComment->getVarTagValues();
+        if ($tags) {
+            if ($type === null || $this->config->prioritizeDocComment) {
+                $tagType = strval($tags[0]->type);
+                if ($tagType !== '') {
+                    $type = $tagType;
+                }
+            }
+
+            $description = $this->makeDescription(
+                null,
+                $tags[0]->description,
+            );
+        }
 
         if ($this->config->makeClassPropertyDetails) {
             $url = $this->getAnchor($property->getName());

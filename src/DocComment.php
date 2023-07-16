@@ -154,6 +154,16 @@ class DocComment
     }
 
     /**
+     * Gets all \@var tag values from the PHPDoc comment.
+     *
+     * @return array<VarTagValueNode> An array of \@var tag values.
+     */
+    public function getVarTagValues(): array
+    {
+        return $this->node->getVarTagValues();
+    }
+
+    /**
      * Gets whether or not an \@deprecated tag value is present in the PHPDoc
      * comment.
      *

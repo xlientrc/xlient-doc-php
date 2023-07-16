@@ -351,7 +351,7 @@ abstract class AbstractPhpDoc
         if ($tag) {
             $description = $this->makeDescription(
                 null,
-                $tag->description
+                $tag->description,
             );
         } else {
             $description = null;
@@ -531,7 +531,7 @@ abstract class AbstractPhpDoc
         if ($tag !== null) {
             $description = $this->makeDescription(
                 null,
-                $tag->description
+                $tag->description,
             );
         } else {
             $description = null;
@@ -589,7 +589,7 @@ abstract class AbstractPhpDoc
 
             $description = $this->makeDescription(
                 null,
-                $tag->description
+                $tag->description,
             );
 
             $content[] = $heading . '### ' . $type;
@@ -642,7 +642,7 @@ abstract class AbstractPhpDoc
 
             $description = $this->makeDescription(
                 null,
-                $tag->description
+                $tag->description,
             );
 
             $row = '| ' . $type . ' | ';
