@@ -60,6 +60,8 @@ class PhpFileMeta
      */
     public function addClassUse(string $name, ?string $as = null): static
     {
+        $name = '\\' . rtrim($name, '\\');
+
         if ($as === null) {
             $as = explode('\\', $name);
             $as = array_pop($as);
@@ -80,6 +82,8 @@ class PhpFileMeta
      */
     public function addFunctionUse(string $name, ?string $as = null): static
     {
+        $name = '\\' . rtrim($name, '\\');
+
         if ($as === null) {
             $as = explode('\\', $name);
             $as = array_pop($as);
@@ -100,6 +104,8 @@ class PhpFileMeta
      */
     public function addConstantUse(string $name, ?string $as = null): static
     {
+        $name = '\\' . rtrim($name, '\\');
+
         if ($as === null) {
             $as = explode('\\', $name);
             $as = array_pop($as);
