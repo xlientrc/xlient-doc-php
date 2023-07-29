@@ -591,15 +591,26 @@ class PhpClassDoc extends AbstractPhpDoc
             return [];
         }
 
+        $constantMeta = $this->makeConstantSynopsisMeta();
+        $propertyMeta = $this->makePropertySynopsisMeta();
+        $methodMeta = $this->makeMethodSynopsisMeta();
+
         $content = [
-            ...$this->makeConstantSynopsisMeta(),
-            ...$this->makePropertySynopsisMeta(),
-            ...$this->makeMethodSynopsisMeta(),
+            'urls' => [
+                ...$constantMeta['urls'],
+                ...$propertyMeta['urls'],
+                ...$methodMeta['urls'],
+            ]
         ];
 
-        if (!$content) {
+        if (!$content['urls']) {
             return [];
         }
+
+        // Reverse sort to ensure longer names first
+        usort($content['urls'], function($a, $b) {
+            return strcasecmp($b[0], $a[0]);
+        });
 
         $content = json_encode($content);
 
@@ -614,15 +625,17 @@ class PhpClassDoc extends AbstractPhpDoc
      * Generates meta data relating to class constants to allow for linking in
      * code sysnopsis after syntax highlighting.
      *
-     * @return array<string> An array of class constant meta data.
+     * @return array{urls:array<array{string,string}>} An array of class constant meta data.
      */
     protected function makeConstantSynopsisMeta(): array
     {
-        if (!$this->config->makeClassConstantDetails) {
-            return [];
-        }
+        $content = [
+            'urls' => []
+        ];
 
-        $content = [];
+        if (!$this->config->makeClassConstantDetails) {
+            return $content;
+        }
 
         $filter = 0;
 
@@ -643,13 +656,17 @@ class PhpClassDoc extends AbstractPhpDoc
             $filter
         );
 
+        $urls = [];
+
         foreach ($constants as $value) {
             $name = $value->getName();
 
             $url = '#' . $this->getAnchor($value->getName());
 
-            $content[$name] = $url;
+            $urls[] = [$name, $url];
         }
+
+        $content['urls'] = $urls;
 
         return $content;
     }
@@ -658,15 +675,17 @@ class PhpClassDoc extends AbstractPhpDoc
      * Generates meta data relating to properties to allow for linking in code
      * sysnopsis after syntax highlighting.
      *
-     * @return array<string> An array of property meta data.
+     * @return array{urls:array<array{string,string}>} An array of property meta data.
      */
     protected function makePropertySynopsisMeta(): array
     {
-        if (!$this->config->makeClassPropertyDetails) {
-            return [];
-        }
+        $content = [
+            'urls' => []
+        ];
 
-        $content = [];
+        if (!$this->config->makeClassPropertyDetails) {
+            return $content;
+        }
 
         $filter = 0;
 
@@ -687,13 +706,17 @@ class PhpClassDoc extends AbstractPhpDoc
             $filter
         );
 
+        $urls = [];
+
         foreach ($properties as $value) {
             $name = $value->getName();
 
             $url = '#' . $this->getAnchor($value->getName());
 
-            $content[$name] = $url;
+            $urls[] = [$name, $url];
         }
+
+        $content['urls'] = $urls;
 
         return $content;
     }
@@ -702,17 +725,19 @@ class PhpClassDoc extends AbstractPhpDoc
      * Generates meta data relating to methods to allow for linking in code
      * sysnopsis after syntax highlighting.
      *
-     * @return array<string> An array of method meta data.
+     * @return array{urls:array<array{string,string}>} An array of method meta data.
      */
     protected function makeMethodSynopsisMeta(): array
     {
+        $content = [
+            'urls' => []
+        ];
+
         if (!$this->config->classMethodFiles &&
             !$this->config->makeClassMethodDetails
         ) {
-            return [];
+            return $content;
         }
-
-        $content = [];
 
         $filter = 0;
 
@@ -735,6 +760,8 @@ class PhpClassDoc extends AbstractPhpDoc
 
         $methods = $this->removeIgnoreableMethods($methods);
 
+        $urls = [];
+
         foreach ($methods as $value) {
             $name = $value->getName();
 
@@ -743,14 +770,18 @@ class PhpClassDoc extends AbstractPhpDoc
                     $this->getName(),
                     $value->getName()
                 );
+
+                if ($url === null) {
+                    continue;
+                }
             } else {
                 $url = '#' . $this->getAnchor($value->getName());
             }
 
-            if ($url !== null) {
-                $content[$name] = $url;
-            }
+            $urls[] = [$name, $url];
         }
+
+        $content['urls'] = $urls;
 
         return $content;
     }

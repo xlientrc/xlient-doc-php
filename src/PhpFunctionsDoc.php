@@ -163,9 +163,16 @@ class PhpFunctionsDoc extends AbstractPhpDoc
             return [];
         }
 
-        $content = [];
+        $functions = $this->functions;
 
-        foreach ($this->functions as $value) {
+        // Reverse sort to ensure longer names first
+        usort($functions, function($a, $b) {
+            return strcasecmp($b->getShortName(), $a->getShortName());
+        });
+
+        $urls = [];
+
+        foreach ($functions as $value) {
             $value = $value->getReflection();
 
             $name = $value->getShortName();
@@ -179,12 +186,16 @@ class PhpFunctionsDoc extends AbstractPhpDoc
                 $url = '#' . $this->getAnchor($value->getShortName());
             }
 
-            $content[$name] = $url;
+            $urls[] = [$name, $url];
         }
 
-        if (!$content) {
+        if (!$urls) {
             return [];
         }
+
+        $content = [
+            'urls' => $urls
+        ];
 
         $content = json_encode($content);
 

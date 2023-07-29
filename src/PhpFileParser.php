@@ -230,9 +230,9 @@ final class PhpFileParser
     /**
      * Parses out tokens relating to the current namespace.
      *
-     * @param array<int, string|array{0:int,1:string,2:int}> $tokens An array of tokens.
+     * @param array<int, string|array{int,string,int}> $tokens An array of tokens.
      *
-     * @return array<int, string|array{0:int,1:string,2:int}> The remaining tokens.
+     * @return array<int, string|array{int,string,int}> The remaining tokens.
      */
     private function parseNamespace(array $tokens): array
     {
@@ -267,9 +267,9 @@ final class PhpFileParser
      * These use statements are added to the meta class to reconstitute fully
      * qualified names.
      *
-     * @param array<int, string|array{0:int,1:string,2:int}> $tokens An array of tokens.
+     * @param array<int, string|array{int,string,int}> $tokens An array of tokens.
      *
-     * @return array<int, string|array{0:int,1:string,2:int}> The remaining tokens.
+     * @return array<int, string|array{int,string,int}> The remaining tokens.
      */
     private function parseUse(array $tokens): array
     {
@@ -405,9 +405,9 @@ final class PhpFileParser
      *
      * This doesn't apply to defines defined in functions or methods.
      *
-     * @param array<int, string|array{0:int,1:string,2:int}> $tokens An array of tokens.
+     * @param array<int, string|array{int,string,int}> $tokens An array of tokens.
      *
-     * @return array<int, string|array{0:int,1:string,2:int}> The remaining tokens.
+     * @return array<int, string|array{int,string,int}> The remaining tokens.
      */
     private function parseDefine(array $tokens): array
     {
@@ -515,9 +515,9 @@ final class PhpFileParser
      * Parses out tokens relating to the current class, interface, trait, or
      * enum.
      *
-     * @param array<int, string|array{0:int,1:string,2:int}> $tokens An array of tokens.
+     * @param array<int, string|array{int,string,int}> $tokens An array of tokens.
      *
-     * @return array<int, string|array{0:int,1:string,2:int}> The remaining tokens.
+     * @return array<int, string|array{int,string,int}> The remaining tokens.
      */
     private function parseClass(array $tokens, int $type): array
     {
@@ -617,9 +617,9 @@ final class PhpFileParser
     /**
      * Parses out tokens relating to the current function.
      *
-     * @param array<int, string|array{0:int,1:string,2:int}> $tokens An array of tokens.
+     * @param array<int, string|array{int,string,int}> $tokens An array of tokens.
      *
-     * @return array<int, string|array{0:int,1:string,2:int}> The remaining tokens.
+     * @return array<int, string|array{int,string,int}> The remaining tokens.
      */
     private function parseFunction(array $tokens): array
     {
@@ -673,9 +673,9 @@ final class PhpFileParser
      *
      * This doesn't apply to constants in classes.
      *
-     * @param array<int, string|array{0:int,1:string,2:int}> $tokens An array of tokens.
+     * @param array<int, string|array{int,string,int}> $tokens An array of tokens.
      *
-     * @return array<int, string|array{0:int,1:string,2:int}> The remaining tokens.
+     * @return array<int, string|array{int,string,int}> The remaining tokens.
      */
     private function parseConstant(array $tokens): array
     {

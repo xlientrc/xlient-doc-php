@@ -153,9 +153,16 @@ class PhpConstantsDoc extends AbstractPhpDoc
             return [];
         }
 
+        $constants = $this->constants;
+
+        // Reverse sort to ensure longer names first
+        usort($constants, function($a, $b) {
+            return strcasecmp($b->getShortName(), $a->getShortName());
+        });
+
         $urls = [];
 
-        foreach ($this->constants as $value) {
+        foreach ($constants as $value) {
             $url = '#' . $this->getAnchor($value->getShortName());
 
             $name = $value->getName();

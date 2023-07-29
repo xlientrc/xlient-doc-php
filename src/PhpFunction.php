@@ -39,6 +39,16 @@ class PhpFunction
     }
 
     /**
+     * Gets the short name of this function.
+     *
+     * @return string The short name of this function.
+     */
+    public function getShortName(): string
+    {
+        return $this->reflector->getShortName();
+    }
+
+    /**
      * Gets a reflector instance of this function.
      *
      * @return ReflectionFunction A reflector instance of this function.
