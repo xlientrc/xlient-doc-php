@@ -650,7 +650,9 @@ final class PhpFileParser
                     continue;
                 }
 
-                $functions = $this->getPhpFunctionsDoc($this->namespace);
+                $functions = $this->getPhpFunctionsDoc(
+                    rtrim($this->namespace, '\\')
+                );
 
                 $function = new PhpFunction(
                     $this->namespace . $token[1],
@@ -766,6 +768,7 @@ final class PhpFileParser
      */
     private function getPhpFunctionsDoc(string $namespace): PhpFunctionsDoc
     {
+        var_dump($namespace);
         if (!array_key_exists($namespace, $this->functions)) {
             $this->functions[$namespace] = new PhpFunctionsDoc(
                 $namespace . '\\' . $this->config->functionsFilename,
@@ -791,6 +794,7 @@ final class PhpFileParser
      */
     private function getPhpConstantsDoc(string $namespace): PhpConstantsDoc
     {
+        var_dump($namespace);
         if (!array_key_exists($namespace, $this->constants)) {
             $this->constants[$namespace] = new PhpConstantsDoc(
                 $namespace . '\\' . $this->config->constantsFilename,
