@@ -1542,6 +1542,8 @@ abstract class AbstractPhpDoc
             $end .= ': ' . $this->getTypeDefinition($type);
         }
 
+        $end .= ';';
+
         // Keep track of definition length to determine if parameters shoud
         // be displayed one per line
         $len = strlen($start . $end);
