@@ -14,6 +14,7 @@ use Xlient\Doc\Php\PhpAccessModifier;
 use function Xlient\Doc\Php\indent as xlient_indent;
 use function Xlient\Doc\Php\make_dir as xlient_make_dir;
 use function Xlient\Doc\Php\markdown_escape as xlient_markdown_escape;
+use function Xlient\Doc\Php\markdown_unescape as xlient_markdown_unescape;
 
 use const DIRECTORY_SEPARATOR as DS;
 
@@ -2648,10 +2649,16 @@ class PhpClassDoc extends AbstractPhpDoc
 
         $methods = $this->removeIgnoreableMethods($methods);
 
+        $namePrefix = xlient_markdown_unescape(
+            $this->config->labels['method']
+        );
+
         foreach ($methods as $value) {
+
             $content = $this->makeFunction(
                 function: $value,
-                name: $this->getName() . '::' . $value->getName(),
+                name: $namePrefix . ' ' . $this->getName() . '::' .
+                    $value->getName(),
             );
 
             $content = implode("\n\n", $content);

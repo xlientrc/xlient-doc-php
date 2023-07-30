@@ -435,6 +435,28 @@ function markdown_escape(string $string): string
 }
 
 /**
+ * Unesacpes the specified markdown string.
+ *
+ * @param string $string A markdown string to unescape.
+ *
+ * @return string An unescaped string.
+ */
+function markdown_unescape(string $string): string
+{
+    return str_replace(
+        [
+            '\\\\', '\-', '\#', '\*', '\+', '\`', '\[', '\]', '\(', '\)',
+                '\!', '\&', '\<', '\>', '\_', '\{', '\}', '\|'
+        ],
+        [
+            '\\', '-', '#', '*', '+', '`', '[', ']', '(', ')',
+            '!', '&', '<', '>', '_', '{', '}', '|'
+        ],
+        $string
+    );
+}
+
+/**
  * Cleans and normalizes a value returned from var_export.
  *
  * @internal

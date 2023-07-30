@@ -7,6 +7,7 @@ use Xlient\Doc\Php\PhpFunction;
 
 use function Xlient\Doc\Php\make_dir as xlient_make_dir;
 use function Xlient\Doc\Php\markdown_escape as xlient_markdown_escape;
+use function Xlient\Doc\Php\markdown_unescape as xlient_markdown_unescape;
 
 use const DIRECTORY_SEPARATOR as DS;
 
@@ -386,11 +387,16 @@ class PhpFunctionsDoc extends AbstractPhpDoc
 
         $files = [];
 
+        $namePrefix = xlient_markdown_unescape(
+            $this->config->labels['function']
+        );
+
         foreach ($this->functions as $value) {
             $value = $value->getReflection();
 
             $content = $this->makeFunction(
                 function: $value,
+                name: $namePrefix . ' \\' . $value->getName(),
             );
 
             $content = implode("\n\n", $content);
