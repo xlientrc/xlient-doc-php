@@ -97,8 +97,10 @@ class PhpClassDoc extends AbstractPhpDoc
      */
     protected function makeName(): array
     {
+        $name = xlient_markdown_escape($this->getName());
+
         return [
-            '# ' . $this->config->labels['class'] . ' ' . $this->getName()
+            '# ' . $this->config->labels['class'] . ' ' . $name
         ];
     }
 
