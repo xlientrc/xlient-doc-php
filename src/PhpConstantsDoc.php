@@ -72,6 +72,8 @@ class PhpConstantsDoc extends AbstractPhpDoc
             $name = ' ' . $name;
         }
 
+        $name = xlient_markdown_escape($name);
+
         return [
             '# ' . $this->config->labels['constants'] . $name
         ];
