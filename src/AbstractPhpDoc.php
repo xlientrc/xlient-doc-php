@@ -1194,9 +1194,9 @@ abstract class AbstractPhpDoc
                 strlen($content[0] . ' ' . $interfaces[0]) > $this->config->lineLength
             ) {
                 $indent = str_pad(' ', $this->config->indentLength, ' ');
-                $content[] = "\n" . $indent . "\\" . implode(",\n    \\", $interfaces);
+                $content[] = "\n" . $indent . implode(",\n    ", $interfaces);
             } else {
-                $content[] = '\\' . implode(', \\', $interfaces);
+                $content[] = implode(', ', $interfaces);
             }
         }
 
