@@ -1194,9 +1194,9 @@ class PhpClassDoc extends AbstractPhpDoc
 
             if ($data->url !== null) {
                 $content[] = $heading . '# ' . $data->type .
-                    ' [$' . $data->name . '](' . $data->url . ')';
+                    ' [' . $data->name . '](' . $data->url . ')';
             } else {
-                $content[] = $heading . '# ' . $data->type . ' $' . $data->name;
+                $content[] = $heading . '# ' . $data->type . ' ' . $data->name;
             }
 
             if ($data->marks !== null) {
@@ -1252,10 +1252,10 @@ class PhpClassDoc extends AbstractPhpDoc
             $row = '| ';
 
             if ($data->url !== null) {
-                $row .= '[$' . $data->name . '](#' . $data->url . ')' .
+                $row .= '[' . $data->name . '](#' . $data->url . ')' .
                     $marks . ' | ' . $data->type . ' | ';
             } else {
-                $row .= '$' . $data->name . $marks . ' | ' . $data->type . ' | ';
+                $row .= $data->name . $marks . ' | ' . $data->type . ' | ';
             }
 
             $row .= $data->description ?? '';
