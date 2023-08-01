@@ -2654,11 +2654,10 @@ class PhpClassDoc extends AbstractPhpDoc
         );
 
         foreach ($methods as $value) {
-
             $content = $this->makeFunction(
                 function: $value,
                 name: $namePrefix . ' ' . $this->getName() . '::' .
-                    $value->getName(),
+                    $value->getName() . '()',
             );
 
             $content = implode("\n\n", $content);
