@@ -1481,16 +1481,18 @@ abstract class AbstractPhpDoc
             $content[] = $this->getTypeDefinition($type);
         }
 
-        $content[] = '$' . $property->getName();
-
         // TODO: Parse it out of the file like we do with functions
         // or perhaps have to go the token method since no easy way of
         // getting position in file.
         // Also need to handle promoted properties
         if ($property->hasDefaultValue()) {
+            $content[] = '$' . $property->getName();
+
             $value = var_export($property->getDefaultValue(), true);
             $value = xlient_clean_var_export($value);
             $content[] = '= ' . $value . ';';
+        } else {
+            $content[] = '$' . $property->getName() . ';';
         }
 
         return implode(' ', $content);
