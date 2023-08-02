@@ -496,6 +496,14 @@ function clean_var_export(string $value): string
         return $output;
     }
 
+    switch ($value) {
+        case 'NULL':
+        case 'FALSE':
+        case 'TRUE':
+            $value = strtolower($value);
+            break;
+    }
+
     return $value;
 }
 
