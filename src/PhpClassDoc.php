@@ -1839,7 +1839,7 @@ class PhpClassDoc extends AbstractPhpDoc
             if ($type === null || $this->config->prioritizeDocComments) {
                 $tagType = strval($tags[0]->type);
                 if ($tagType !== '') {
-                    $type = $tagType;
+                    $type = xlient_markdown_escape($tagType);
                 }
             }
 

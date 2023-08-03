@@ -1,6 +1,6 @@
 # Xlient PHP Markdown Documentation Generation Library
 
-This library is used to generate documentation files for your PHP code in GitHub compatible Markdown.
+This library is a PHP documentor used to generate documentation files for your PHP code in GitHub compatible Markdown.
 
 Requires PHP 8.1 or higher.
 
