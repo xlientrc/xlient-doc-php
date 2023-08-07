@@ -431,6 +431,30 @@ class PhpEnumDoc extends PhpClassDoc
     /**
      * @inheritDoc
      */
+    protected function getMethodDirPath($name): string
+    {
+        return $this->getDirPath(
+            $name,
+            $this->config->enumPathPrefix,
+            $this->config->enumPathSuffix,
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getMethodUrlPath($name): string
+    {
+        return $this->getUrlPath(
+            $name,
+            $this->config->enumPathPrefix,
+            $this->config->enumPathSuffix,
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getClassFile(string $name): string
     {
         return $this->getFile(

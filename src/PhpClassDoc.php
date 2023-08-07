@@ -2735,7 +2735,7 @@ class PhpClassDoc extends AbstractPhpDoc
         // Add method so it will treat the class name as a namespace path.
         $class = '\\' . ltrim($class, '\\') . '\\' . $method;
 
-        $dir = $this->destDir . DS . $this->getDirPath($class);
+        $dir = $this->destDir . DS . $this->getMethodDirPath($class);
         if (!file_exists($dir)) {
             xlient_make_dir($dir);
         }
@@ -2779,7 +2779,7 @@ class PhpClassDoc extends AbstractPhpDoc
         // Add method so it will treat the class name as a namespace path.
         $class .= '\\' . $method;
 
-        $url = $baseUrl . $this->getUrlPath($class);
+        $url = $baseUrl . $this->getMethodUrlPath($class);
 
         $url .= '/' . $this->getFilename(
             $method,
@@ -2788,6 +2788,38 @@ class PhpClassDoc extends AbstractPhpDoc
         );
 
         return $url;
+    }
+
+    /**
+     * Gets a directory path for the specified fully qualified class name.
+     *
+     * @param string $name A fully qualified class name.
+     *
+     * @return string A directory path.
+     */
+    protected function getMethodDirPath($name): string
+    {
+        return $this->getDirPath(
+            $name,
+            $this->config->classPathPrefix,
+            $this->config->classPathSuffix,
+        );
+    }
+
+    /**
+     * Gets a URL path from the specified fully qualified class name.
+     *
+     * @param string $name A fully qualified class name.
+     *
+     * @return string A URL path.
+     */
+    protected function getMethodUrlPath($name): string
+    {
+        return $this->getUrlPath(
+            $name,
+            $this->config->classPathPrefix,
+            $this->config->classPathSuffix,
+        );
     }
 
     /**

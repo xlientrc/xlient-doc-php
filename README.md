@@ -434,6 +434,91 @@ The filename to use for a functions documentation file.
 ```php
 functionsFilename : 'functions',
 ```
+### classPathPrefix
+
+A value to prepend to a class documentation dirname.
+
+#### Default
+
+```php
+classPathPrefix: '',
+```
+
+#### Example
+
+```php
+classPathPrefix: 'class-',
+```
+
+### classPathSuffix
+
+A value to append to a class documentation dirname.
+
+#### Default
+
+```php
+classPathSuffix : '',
+```
+
+### enumPathPrefix
+
+A value to prepend to an enum documentation dirname.
+
+#### Default
+
+```php
+enumPathPrefix : '',
+```
+
+### enumPathSuffix
+
+A value to append to an enum documentation dirname.
+
+#### Default
+
+```php
+enumPathSuffix : '',
+```
+
+### interfacePathPrefix
+
+A value to prepend to an interface documentation dirname.
+
+#### Default
+
+```php
+interfacePathPrefix : '',
+```
+
+### interfacePathSuffix
+
+A value to append to an interface documentation dirname.
+
+#### Default
+
+```php
+interfacePathSuffix : '',
+```
+
+### traitPathPrefix
+
+A value to prepend to a trait documentation dirname.
+
+#### Default
+
+```php
+traitPathPrefix : '',
+```
+
+### traitPathSuffix
+
+A value to append to a trait documentation dirname.
+
+#### Default
+
+```php
+traitPathSuffix : '',
+```
 
 ### labels
 

@@ -21,6 +21,30 @@ class PhpInterfaceDoc extends PhpClassDoc
     /**
      * @inheritDoc
      */
+    protected function getMethodDirPath($name): string
+    {
+        return $this->getDirPath(
+            $name,
+            $this->config->interfacePathPrefix,
+            $this->config->interfacePathSuffix,
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getMethodUrlPath($name): string
+    {
+        return $this->getUrlPath(
+            $name,
+            $this->config->interfacePathPrefix,
+            $this->config->interfacePathSuffix,
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getClassFile(string $name): string
     {
         return $this->getFile(

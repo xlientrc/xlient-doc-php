@@ -72,6 +72,24 @@ class Configuration
      *  documentation file.
      * @param string $functionsFilename The filename to use for a functions
      *  documentation file.
+     * @param string $classPathPrefix A value to prepend to a class
+     *  documentation dirname.
+     * @param string $classPathSuffix A value to append to a class
+     *  documentation dirname.
+     * @param string $enumPathPrefix A value to prepend to an enum
+     *  documentation dirname.
+     * @param string $enumPathSuffix A value to append to an enum
+     *  documentation dirname.
+     * @param string $interfacePathPrefix A value to prepend to an
+     *  interface documentation dirname.
+     * @param string $interfacePathSuffix A value to append to an
+     *  interface documentation dirname.
+     * @param string $traitPathPrefix A value to prepend to a trait
+     *  documentation dirname.
+     * @param string $traitPathSuffix A value to append to a trait
+     *  documentation dirname.
+     * @param string $functionsPath The directory name to use for function
+     *  documentation files.
      * @param array<string, string> $labels An array of key value pairs to use
      *  for documentation labels.
      * @param bool $makeClassDescription When true, the class documentation
@@ -197,6 +215,17 @@ class Configuration
         public string $functionFilenameSuffix = '',
         public string $constantsFilename = 'constants',
         public string $functionsFilename = 'functions',
+
+        public string $classPathPrefix = '',
+        public string $classPathSuffix = '',
+        public string $enumPathPrefix = '',
+        public string $enumPathSuffix = '',
+        public string $interfacePathPrefix = '',
+        public string $interfacePathSuffix = '',
+        public string $traitPathPrefix = '',
+        public string $traitPathSuffix = '',
+        public string $functionsPath = 'functions',
+
         public array $labels = [],
 
         public bool $makeClassDescription = true,

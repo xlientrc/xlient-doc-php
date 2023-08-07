@@ -1011,12 +1011,18 @@ abstract class AbstractPhpDoc
      * Gets a URL path from the specified fully qualified name.
      *
      * @param string $name A fully qualified name.
+     * @param string $prefix A value to prepend before the last path.
+     * @param string $suffix A value to append after the last path.
      *
      * @return string A URL path.
      */
-    protected function getUrlPath(string $name): string
+    protected function getUrlPath(
+        string $name,
+        string $prefix = '',
+        string $suffix = '',
+    ): string
     {
-        $path = $this->getDirPath($name);
+        $path = $this->getDirPath($name, $prefix, $suffix);
 
         if (DS !== '/') {
             $path = str_replace(DS, '/', $path);
@@ -1031,8 +1037,14 @@ abstract class AbstractPhpDoc
      * @param string $name A fully qualified name.
      *
      * @return string A directory path.
+     * @param string $prefix A value to prepend before the last path.
+     * @param string $suffix A value to append after the last path.
      */
-    protected function getDirPath(string $name): string
+    protected function getDirPath(
+        string $name,
+        string $prefix = '',
+        string $suffix = '',
+    ): string
     {
         $name = '\\' . ltrim($name, '\\');
 
@@ -1070,6 +1082,14 @@ abstract class AbstractPhpDoc
         foreach ($paths as $key => $value) {
             $value = xlient_to_kebab_case($value);
             $paths[$key] = $value;
+        }
+
+        if ($prefix !== '') {
+            $paths[count($paths) - 1] = $prefix . $paths[count($paths) - 1];
+        }
+
+        if ($suffix !== '') {
+            $paths[count($paths) - 1] = $paths[count($paths) - 1] . $suffix;
         }
 
         $path = $basePath . DS . implode(DS, $paths);
