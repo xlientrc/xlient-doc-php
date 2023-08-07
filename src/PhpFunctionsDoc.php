@@ -465,8 +465,8 @@ class PhpFunctionsDoc extends AbstractPhpDoc
     protected function getFunctionFile(string $function): string
     {
         if ($this->config->functionDir) {
-            $dir = $this->destDir . DS . $this->config->functionsFilename .
-                DS . $this->getDirPath($this->getName());
+            $dir = $this->destDir . DS . $this->getDirPath($this->getName()) .
+                DS . $this->config->functionsFilename;
         } else {
             $dir = $this->destDir . DS . $this->getDirPath($this->getName());
         }
