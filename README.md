@@ -223,16 +223,6 @@ methodUrlCallback: function(string $class, string $method): ?string {
 },
 ```
 
-### classMethodFiles
-
-When true, separate files will be generated for each class method.
-
-#### Default
-
-```php
-classMethodFiles: true,
-```
-
 ### classPublic
 
 When true, public class items will be included.
@@ -273,12 +263,30 @@ A string value to use to separate class names in the inheritance list.
 classSeparator: ' » ',
 ```
 
+### methodFiles
+
+When true, separate files will be generated for each class method.
+
+#### Default
+
+```php
+methodFiles: true,
+```
+
 ### functionFiles
 
 When true, separate files will be generated for each function.
 
 ```php
 functionFiles: true,
+```
+
+### functionDir
+
+When true, function files will be placed in a sub directory with the same name as the functions file.
+
+```php
+functionDir: true,
 ```
 
 ### classFilenamePrefix
@@ -365,6 +373,46 @@ A value to append to a trait documentation filename.
 
 ```php
 traitFilenameSuffix : '',
+```
+
+### methodFilenamePrefix
+
+A value to prepend to a method documentation filename.
+
+#### Default
+
+```php
+methodFilenamePrefix : '',
+```
+
+### methodFilenameSuffix
+
+A value to append to a method documentation filename.
+
+#### Default
+
+```php
+methodFilenameSuffix : '',
+```
+
+### functionFilenamePrefix
+
+A value to prepend to a function documentation filename.
+
+#### Default
+
+```php
+functionFilenamePrefix : '',
+```
+
+### functionFilenameSuffix
+
+A value to append to a function documentation filename.
+
+#### Default
+
+```php
+functionFilenameSuffix : '',
 ```
 
 ### constantsFilename

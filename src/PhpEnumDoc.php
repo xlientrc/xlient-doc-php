@@ -431,11 +431,21 @@ class PhpEnumDoc extends PhpClassDoc
     /**
      * @inheritDoc
      */
-    protected function getFilename(?string $name = null): string
+    protected function getClassFile(string $name): string
     {
-        $name ??= $this->getName();
+        return $this->getFile(
+            $name,
+            $this->config->enumFilenamePrefix,
+            $this->config->enumFilenameSuffix,
+        );
+    }
 
-        return $this->getClassFilename(
+    /**
+     * @inheritDoc
+     */
+    protected function getClassUrl(string $name): ?string
+    {
+        return $this->getUrl(
             $name,
             $this->config->enumFilenamePrefix,
             $this->config->enumFilenameSuffix,

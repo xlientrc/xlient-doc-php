@@ -51,7 +51,7 @@ class PhpFunctionsDoc extends AbstractPhpDoc
 
         $content = implode("\n\n", $content);
 
-        $file = $this->getFile();
+        $file = $this->getFile($this->getName());
 
         file_put_contents($file, $content);
 
@@ -200,7 +200,9 @@ class PhpFunctionsDoc extends AbstractPhpDoc
 
         $content = json_encode($content);
 
-        $file = substr($this->getFile(), 0, -3) . '.json';
+        $file = $this->getFile($this->getName());
+
+        $file = substr($file, 0, -3) . '.json';
 
         file_put_contents($file, $content);
 
@@ -462,12 +464,22 @@ class PhpFunctionsDoc extends AbstractPhpDoc
      */
     protected function getFunctionFile(string $function): string
     {
-        $dir = $this->destDir . DS . $this->getDirPath($this->getName());
+        if ($this->config->functionDir) {
+            $dir = $this->destDir . DS . $this->config->functionsFilename .
+                DS . $this->getDirPath($this->getName());
+        } else {
+            $dir = $this->destDir . DS . $this->getDirPath($this->getName());
+        }
+
         if (!file_exists($dir)) {
             xlient_make_dir($dir);
         }
 
-        return $dir . DS . $this->getFilename($function);
+        return $dir . DS . $this->getFilename(
+            $function,
+            $this->config->functionFilenamePrefix,
+            $this->config->functionFilenameSuffix,
+        );
     }
 
     /**
@@ -498,9 +510,17 @@ class PhpFunctionsDoc extends AbstractPhpDoc
             return null;
         }
 
+        if ($this->config->functionDir) {
+            $name .= '\\' . $this->config->functionsFilename;
+        }
+
         $url = $baseUrl . $this->getUrlPath($name);
 
-        return $url . '/' . $this->getFilename($function);
+        return $url . '/' . $this->getFilename(
+            $function,
+            $this->config->functionFilenamePrefix,
+            $this->config->functionFilenameSuffix,
+        );
     }
 }
 

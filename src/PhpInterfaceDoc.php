@@ -21,11 +21,21 @@ class PhpInterfaceDoc extends PhpClassDoc
     /**
      * @inheritDoc
      */
-    protected function getFilename(?string $name = null): string
+    protected function getClassFile(string $name): string
     {
-        $name ??= $this->getName();
+        return $this->getFile(
+            $name,
+            $this->config->interfaceFilenamePrefix,
+            $this->config->interfaceFilenameSuffix,
+        );
+    }
 
-        return $this->getClassFilename(
+    /**
+     * @inheritDoc
+     */
+    protected function getClassUrl(string $name): ?string
+    {
+        return $this->getUrl(
             $name,
             $this->config->interfaceFilenamePrefix,
             $this->config->interfaceFilenameSuffix,

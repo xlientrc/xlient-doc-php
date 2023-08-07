@@ -875,18 +875,20 @@ abstract class AbstractPhpDoc
     }
 
     /**
-     * Gets a file for the specified fully qualified name.
+     * Gets a file for the specified fully qualified name, prefix and suffix.
      *
-     * If a name is not speciifed, the documentation file's name will be used.
-     *
-     * @param string|null $name A fully qualified name.
+     * @param string $name A fully qualified name.
+     * @param string $prefix A value to prepend before the name.
+     * @param string $suffix A value to append after the name.
      *
      * @return string A file.
      */
-    protected function getFile(?string $name = null): string
+    protected function getFile(
+        string $name,
+        string $prefix = '',
+        string $suffix = '',
+    ): string
     {
-        $name ??= $this->getName();
-
         $name = '\\' . ltrim($name, '\\');
 
         $dir = $this->destDir . DS . $this->getDirPath($name);
@@ -894,22 +896,24 @@ abstract class AbstractPhpDoc
             xlient_make_dir($dir);
         }
 
-        return $dir . DS . $this->getFilename($name);
+        return $dir . DS . $this->getFilename($name, $prefix, $suffix);
     }
 
     /**
-     * Gets a URL for the specified fully qualified name.
+     * Gets a URL for the specified fully qualified name, prefix and suffix.
      *
-     * If a name is not specified, the documentation file's name will be used.
-     *
-     * @param string|null $name A fully qualified name.
+     * @param string $name A fully qualified name.
+     * @param string $prefix A value to prepend before the name.
+     * @param string $suffix A value to append after the name.
      *
      * @return string|null A URL.
      */
-    protected function getUrl(?string $name = null): ?string
+    protected function getUrl(
+        string $name,
+        string $prefix = '',
+        string $suffix = '',
+    ): ?string
     {
-        $name ??= $this->getName();
-
         $name = '\\' . ltrim($name, '\\');
 
         $matchingNamespace = null;
@@ -931,7 +935,7 @@ abstract class AbstractPhpDoc
 
         $url = $baseUrl . $this->getUrlPath($name);
 
-        $url .= '/' . $this->getFilename($name);
+        $url .= '/' . $this->getFilename($name, $prefix, $suffix);
 
         return $url;
     }
@@ -1006,13 +1010,11 @@ abstract class AbstractPhpDoc
     /**
      * Gets a URL path from the specified fully qualified name.
      *
-     * If a name is not specified, the documentation file's name will be used.
-     *
-     * @param string|null $name A fully qualified name.
+     * @param string $name A fully qualified name.
      *
      * @return string A URL path.
      */
-    protected function getUrlPath(?string $name): string
+    protected function getUrlPath(string $name): string
     {
         $path = $this->getDirPath($name);
 
@@ -1026,16 +1028,12 @@ abstract class AbstractPhpDoc
     /**
      * Gets a directory path for the specified fully qualified name.
      *
-     * If a name is not specified, the documentation file's name will be used.
-     *
-     * @param string|null $name A fully qualified name.
+     * @param string $name A fully qualified name.
      *
      * @return string A directory path.
      */
-    protected function getDirPath(?string $name = null): string
+    protected function getDirPath(string $name): string
     {
-        $name ??= $this->getName();
-
         $name = '\\' . ltrim($name, '\\');
 
         $matchingNamespace = null;
@@ -1080,22 +1078,6 @@ abstract class AbstractPhpDoc
     }
 
     /**
-     * Gets a filename from the specified fully qualified name.
-     *
-     * If a name is not specified, the documentation file's name will be used.
-     *
-     * @param string|null $name A fully qualified name.
-     *
-     * @return string A filename.
-     */
-    protected function getFilename( ?string $name = null): string
-    {
-        $name ??= $this->getName();
-
-        return $this->getClassFilename($name);
-    }
-
-    /**
      * Gets a filename from the specified fully qualified name, prefix and
      * suffix.
      *
@@ -1107,7 +1089,7 @@ abstract class AbstractPhpDoc
      *
      * @return string A filename.
      */
-    protected function getClassFilename(
+    protected function getFilename(
         string $name,
         string $prefix = '',
         string $suffix = '',

@@ -80,7 +80,7 @@ class PhpClassDoc extends AbstractPhpDoc
 
         $content = implode("\n\n", $content);
 
-        $file = $this->getFile();
+        $file = $this->getClassFile($this->getName());
 
         file_put_contents($file, $content);
 
@@ -617,7 +617,9 @@ class PhpClassDoc extends AbstractPhpDoc
 
         $content = json_encode($content);
 
-        $file = substr($this->getFile(), 0, -3) . '.json';
+        $file = $this->getClassFile($this->getName());
+
+        $file = substr($file, 0, -3) . '.json';
 
         file_put_contents($file, $content);
 
@@ -736,7 +738,7 @@ class PhpClassDoc extends AbstractPhpDoc
             'urls' => []
         ];
 
-        if (!$this->config->classMethodFiles &&
+        if (!$this->config->methodFiles &&
             !$this->config->makeClassMethodDetails
         ) {
             return $content;
@@ -768,7 +770,7 @@ class PhpClassDoc extends AbstractPhpDoc
         foreach ($methods as $value) {
             $name = $value->getName();
 
-            if ($this->config->classMethodFiles) {
+            if ($this->config->methodFiles) {
                 $url = $this->getMethodUrl(
                     $this->getName(),
                     $value->getName()
@@ -852,7 +854,7 @@ class PhpClassDoc extends AbstractPhpDoc
         $items = [];
 
         foreach ($parentClasses as $key => $class) {
-            $url = $this->getUrl($class);
+            $url = $this->getClassUrl($class);
 
             if ($url !== null) {
                 $url = xlient_markdown_escape($url);
@@ -903,7 +905,11 @@ class PhpClassDoc extends AbstractPhpDoc
         $items = [];
 
         foreach ($interfaces as $key => $interface) {
-            $url = $this->getUrl($interface);
+            $url = $this->getUrl(
+                $interface,
+                $this->config->interfaceFilenamePrefix,
+                $this->config->interfaceFilenameSuffix,
+            );
 
             if ($url !== null) {
                 $url = xlient_markdown_escape($url);
@@ -954,7 +960,11 @@ class PhpClassDoc extends AbstractPhpDoc
         $items = [];
 
         foreach ($traits as $key => $trait) {
-            $url = $this->getUrl($trait);
+            $url = $this->getUrl(
+                $trait,
+                $this->config->traitFilenamePrefix,
+                $this->config->traitFilenameSuffix,
+            );
 
             if ($url !== null) {
                 $url = xlient_markdown_escape($url);
@@ -2382,7 +2392,7 @@ class PhpClassDoc extends AbstractPhpDoc
             null
         );
 
-        if ($this->config->classMethodFiles) {
+        if ($this->config->methodFiles) {
             $url = $this->getMethodUrl(
                 $this->getName(),
                 $method->getName()
@@ -2621,7 +2631,7 @@ class PhpClassDoc extends AbstractPhpDoc
     protected function makeMethodFiles(): array
     {
         if (!$this->config->makeClassMethods ||
-            !$this->config->classMethodFiles
+            !$this->config->methodFiles
         ) {
             return [];
         }
@@ -2722,6 +2732,7 @@ class PhpClassDoc extends AbstractPhpDoc
      */
     protected function getMethodFile(string $class, string $method): string
     {
+        // Add method so it will treat the class name as a namespace path.
         $class = '\\' . ltrim($class, '\\') . '\\' . $method;
 
         $dir = $this->destDir . DS . $this->getDirPath($class);
@@ -2729,7 +2740,11 @@ class PhpClassDoc extends AbstractPhpDoc
             xlient_make_dir($dir);
         }
 
-        return $dir . DS . $this->getFilename($class);
+        return $dir . DS . $this->getFilename(
+            $method,
+            $this->config->methodFilenamePrefix,
+            $this->config->methodFilenameSuffix,
+        );
     }
 
     /**
@@ -2761,11 +2776,16 @@ class PhpClassDoc extends AbstractPhpDoc
             return null;
         }
 
+        // Add method so it will treat the class name as a namespace path.
         $class .= '\\' . $method;
 
         $url = $baseUrl . $this->getUrlPath($class);
 
-        $url .= '/' . $this->getFilename($class);
+        $url .= '/' . $this->getFilename(
+            $method,
+            $this->config->methodFilenamePrefix,
+            $this->config->methodFilenameSuffix,
+        );
 
         return $url;
     }
@@ -2791,13 +2811,32 @@ class PhpClassDoc extends AbstractPhpDoc
     }
 
     /**
-     * @inheritDoc
+     * Gets a file for the specified fully qualified class name.
+     *
+     * @param string $name A fully qualified name.
+     *
+     * @return string A file.
      */
-    protected function getFilename(?string $name = null): string
-    {
-        $name ??= $this->getName();
 
-        return $this->getClassFilename(
+    protected function getClassFile(string $name): string
+    {
+        return $this->getFile(
+            $name,
+            $this->config->classFilenamePrefix,
+            $this->config->classFilenameSuffix,
+        );
+    }
+
+    /**
+     * Gets a URL for the specified fully qualified class name.
+     *
+     * @param string $name A fully qualified name.
+     *
+     * @return string|null A URL.
+     */
+    protected function getClassUrl(string $name): ?string
+    {
+        return $this->getUrl(
             $name,
             $this->config->classFilenamePrefix,
             $this->config->classFilenameSuffix,

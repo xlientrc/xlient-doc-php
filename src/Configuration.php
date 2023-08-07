@@ -31,8 +31,6 @@ class Configuration
      *  external urls.
      * @param Closure|null $methodUrlCallback A more precise method of
      *  providing external urls for class methods.
-     * @param bool $classMethodFiles When true, separate files will be
-     *  generated for each class method.
      * @param bool $classPublic When true, public class items will be included.
      * @param bool $classProtected When true protected class items will be
      *  included.
@@ -40,8 +38,12 @@ class Configuration
      *  included.
      * @param string $classSeparator A string value to use to separate class
      *  names in the inheritance list.
+     * @param bool $methodFiles When true, separate files will be
+     *  generated for each class method.
      * @param bool $functionFiles When true, separate files will be generated
      *  for each function.
+     * @param bool $functionDir When true, function files will be placed in a
+     * sub directory with the same name as the functions file.
      * @param string $classFilenamePrefix A value to prepend to a class
      *  documentation filename.
      * @param string $classFilenameSuffix A value to append to a class
@@ -57,6 +59,14 @@ class Configuration
      * @param string $traitFilenamePrefix A value to prepend to a trait
      *  documentation filename.
      * @param string $traitFilenameSuffix A value to append to a trait
+     *  documentation filename.
+     * @param string $methodFilenamePrefix A value to prepend to a method
+     *  documentation filename.
+     * @param string $methodFilenameSuffix A value to append to a method
+     *  documentation filename.
+     * @param string $functionFilenamePrefix A value to prepend to a function
+     *  documentation filename.
+     * @param string $functionFilenameSuffix A value to append to a function
      *  documentation filename.
      * @param string $constantsFilename The filename to use for a constants
      *  documentation file.
@@ -163,13 +173,15 @@ class Configuration
         public ?Closure $urlCallback = null,
         public ?Closure $methodUrlCallback = null,
 
-        public bool $classMethodFiles = true,
         public bool $classPublic = true,
         public bool $classProtected = true,
         public bool $classPrivate = true,
         public string $classSeparator = ' » ',
 
+        public bool $methodFiles = true,
+
         public bool $functionFiles = true,
+        public bool $functionDir = true,
 
         public string $classFilenamePrefix = '',
         public string $classFilenameSuffix = '',
@@ -179,6 +191,10 @@ class Configuration
         public string $interfaceFilenameSuffix = '',
         public string $traitFilenamePrefix = '',
         public string $traitFilenameSuffix = '',
+        public string $methodFilenamePrefix = '',
+        public string $methodFilenameSuffix = '',
+        public string $functionFilenamePrefix = '',
+        public string $functionFilenameSuffix = '',
         public string $constantsFilename = 'constants',
         public string $functionsFilename = 'functions',
         public array $labels = [],

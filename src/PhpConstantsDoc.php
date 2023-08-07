@@ -47,7 +47,7 @@ class PhpConstantsDoc extends AbstractPhpDoc
 
         $content = implode("\n\n", $content);
 
-        $file = $this->getFile();
+        $file = $this->getFile($this->getName());
 
         file_put_contents($file, $content);
 
@@ -190,7 +190,8 @@ class PhpConstantsDoc extends AbstractPhpDoc
 
         $content = json_encode($content);
 
-        $file = substr($this->getFile(), 0, -3) . '.json';
+        $file = $this->getFile($this->getName());
+        $file = substr($file, 0, -3) . '.json';
 
         file_put_contents($file, $content);
 
